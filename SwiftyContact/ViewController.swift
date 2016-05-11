@@ -32,16 +32,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destController = segue.destinationViewController as! DetailViewController
-        let indexPath = contactTableView.indexPathForSelectedRow
-        let selectedEntry = swiftyArray[indexPath!.row]
-        destController.selectedEntry = selectedEntry
-        contactTableView.deselectRowAtIndexPath(indexPath!, animated: true)
+        if segue.identifier == "seeSelectedContact" {
+            //
+            let indexPath = contactTableView.indexPathForSelectedRow
+            let selectedEntry = swiftyArray[indexPath!.row]
+            destController.selectedEntry = selectedEntry
+            contactTableView.deselectRowAtIndexPath(indexPath!, animated: true)
+            
+        } else if segue.identifier == "addNewContact" {
+            destController.selectedEntry = nil
+            
+        }
         
     }
-    
-    
-    
-    
+
     //MARK: - Table View Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,9 +54,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
-    //Person *currentPerson = _personsArray[indexPath.row];
-    //cell.nameLabel.text = [NSString stringWithFormat:@"%@, %@", currentPerson.personLastName,currentPerson.personFirstName];
-    //    cell.textLabel.text = [NSString stringWithFormat:@"%@, %@",currentPerson.personLastName, currentPerson.personFirstName];
+    
+    
+   
+    
+    //REFERENCE FOR CUSTOM TABLE VIEW METHODS
     
     //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     //formatter.dateFormat = @"MMMM d, yyyy";
@@ -67,24 +73,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let currentEntry = swiftyArray[indexPath.row]
-        cell.textLabel!.text = currentEntry.personFirstName
+        cell.textLabel!.text = currentEntry.personFirstName! + " " + currentEntry.personLastName!
         cell.detailTextLabel!.text = "\(currentEntry.personPhone!)"
         
         
-        
-
         
         return cell
         
     }
     
+    //Edit Table View
+    
+//    tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//    NSLog(@"Delete");
+//    Person *personToDelete = _personsArray[indexPath.row];
+//    [_manageObjectContext deleteObject:personToDelete];
+//    [_appDelegate saveContext];
+//    [self refreshDataAndTAble];
+//    }];
+//    return @[deleteAction];
+//    
+//    }
+//    
+    
+//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?
+    
+    
+    
+    // REFERESHES AFTER RETURNING TO TABLE VIEW
+    
+    
+    func refreshDataAndTable() {
+        swiftyArray = self.fetchPersons()!
+        contactTableView.reloadData()
+        
+    }
     
     
     
     //MARK: - Core Data Methods
     
-    
-
     
     //ADD TEMP RECORDS
     
@@ -134,20 +163,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    //Execute Core Fetch
-//    NSError *error;
-//    NSArray *fetchResults = [_manageObjectContext executeFetchRequest:fetchRequest error:&error];
-//    return fetchResults;
-    
-    
-    
+
+
     //MARK:  - Life Cycle Methods
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //tempAddRecords()
-        swiftyArray = fetchPersons()!
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.refreshDataAndTable()
+
     }
     
     override func didReceiveMemoryWarning() {

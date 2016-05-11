@@ -47,7 +47,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WiE-JB-9xn" kind="show" id="nST-JG-Q9d"/>
+                                            <segue destination="WiE-JB-9xn" kind="show" identifier="seeSelectedContact" id="nST-JG-Q9d"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,7 +93,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bG0-Dt-fSe">
-                                <rect key="frame" x="20" y="131" width="217" height="30"/>
+                                <rect key="frame" x="20" y="131" width="150" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -104,13 +104,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6z5-R8-XbT">
-                                <rect key="frame" x="305" y="102" width="82" height="21"/>
+                                <rect key="frame" x="225" y="102" width="82" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oYz-vd-ulL">
-                                <rect key="frame" x="20" y="219" width="227" height="30"/>
+                                <rect key="frame" x="20" y="219" width="180" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -127,7 +127,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SgG-HP-jzu">
-                                <rect key="frame" x="20" y="310" width="227" height="30"/>
+                                <rect key="frame" x="20" y="310" width="180" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -138,12 +138,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKb-xe-UPG">
-                                <rect key="frame" x="20" y="403" width="227" height="30"/>
+                                <rect key="frame" x="20" y="403" width="250" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cmP-Db-3wp">
-                                <rect key="frame" x="305" y="131" width="226" height="30"/>
+                                <rect key="frame" x="225" y="131" width="150" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -164,6 +164,13 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addressTextField" destination="mKb-xe-UPG" id="IyO-nm-zeq"/>
+                        <outlet property="emailTextField" destination="oYz-vd-ulL" id="8D5-LE-PQo"/>
+                        <outlet property="firstNameTextField" destination="bG0-Dt-fSe" id="wPx-xu-3iY"/>
+                        <outlet property="lastNameTextField" destination="cmP-Db-3wp" id="ggO-yu-jcE"/>
+                        <outlet property="phoneTextField" destination="SgG-HP-jzu" id="h1U-Vj-J8q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7e-CL-eSU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

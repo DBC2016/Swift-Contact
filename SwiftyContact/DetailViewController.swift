@@ -29,7 +29,6 @@ class DetailViewController: UIViewController {
     
     
     var selectedEntry :Persons?
-    var swiftyArray = [Persons]()
     
     
     
@@ -38,57 +37,91 @@ class DetailViewController: UIViewController {
     
     //MARK: - Interactivity Methods
 
-//    
-//    -(void)saveAndPop {
-//    [_appDelegate saveContext];
-//    [self.navigationController popViewControllerAnimated:true];
-//    
-//    }
-//    
-//    
-//    -(IBAction)saveButtonPressed:(id)sender {
-//    NSLog(@"Save");
-//    //    _currentPerson.personFirstName = _firstNameTextField.text;
-//    _currentPerson.personLastName = _lastNameTextField.text;
-//    _currentPerson.personBirthday = _birthdayPicker.date;
-//    _currentPerson.personEmail = _emailTextField.text;
-//    [self saveAndPop];
-//    
-//    }
-//    
-//    -(IBAction)deleteButtonPressed:(id)sender {
-//    NSLog(@"Delete");
-//    [_managedObjectContext deleteObject:_currentPerson];
-//    [self saveAndPop];
-//    
-//    }
-//    
-    
+    func saveAndPop() {
+        appDelegate.saveContext()
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
     
 
     
     @IBAction func saveButtonPressed(button: UIBarButtonItem) {
+        print("Save Contact")
+        selectedEntry?.personFirstName = firstNameTextField.text
+        selectedEntry?.personLastName = lastNameTextField.text
+        selectedEntry?.personEmail =  emailTextField.text
+        selectedEntry?.personPhone = phoneTextField.text
+        selectedEntry?.personAddress = addressTextField.text
+        self.saveAndPop()
         
+        
+    
         
     }
     
     @IBAction func deleteButtonPressed(button: UIBarButtonItem) {
+        print("Delete Contact")
+        if let selEntry = selectedEntry{
+            managedObjectContext.deleteObject(selEntry)
+            self.saveAndPop()
+        }
         
         
     }
     
+  
+        
+        
+    func personLoadUp() {
+        
+        if let selContact = selectedEntry {
+            firstNameTextField.text = selContact.personFirstName
+        } else {
+            firstNameTextField.text = ""
+        }
+        if let selContact = selectedEntry {
+            lastNameTextField.text = selContact.personLastName
+        } else {
+            lastNameTextField.text = ""
+        }
+        if let selContact = selectedEntry {
+            phoneTextField.text = selContact.personPhone
+        } else {
+            phoneTextField.text = ""
+        }
+        if let selContact = selectedEntry {
+            addressTextField.text = selContact.personAddress
+        } else {
+            addressTextField.text = ""
+            if let selContact = selectedEntry {
+                emailTextField.text = selContact.personEmail
+            }
+            
+        }
 
-    
-    
-    
+        
+    }
+
     
     //MARK: - Life Cycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Got \(selectedEntry?.personFirstName)")
-
-
+        if selectedEntry != nil{
+            self.personLoadUp()
+        
+        } else {
+            let entityDescription = NSEntityDescription.entityForName("Persons", inManagedObjectContext: managedObjectContext)!
+            selectedEntry = Persons(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
+            self.personLoadUp()
+        }
+           }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if managedObjectContext.hasChanges {
+            managedObjectContext.rollback()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,6 +131,5 @@ class DetailViewController: UIViewController {
     
 
 
-
-
 }
+
