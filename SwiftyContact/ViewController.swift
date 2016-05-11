@@ -51,23 +51,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return swiftyArray.count
     }
-    
-    
-    
-    
-    
-   
-    
-    //REFERENCE FOR CUSTOM TABLE VIEW METHODS
-    
-    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //formatter.dateFormat = @"MMMM d, yyyy";
-    //cell.birthdayLabel.text= [formatter stringFromDate:currentPerson.personBirthday];
-    ////    cell.detailTextLabel.text = [formatter stringFromDate:currentPerson.personBirthday];
-    //[cell.niceSwitch setOn:[currentPerson.personNice boolValue]];
-    //
-    //return cell;
-    //}
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -76,13 +59,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.textLabel!.text = currentEntry.personFirstName! + " " + currentEntry.personLastName!
         cell.detailTextLabel!.text = "\(currentEntry.personPhone!)"
         
-        
-        
         return cell
         
     }
     
-    //Edit Table View
+    //Edit Table View aka Swipe Feature
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
