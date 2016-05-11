@@ -93,10 +93,11 @@ class DetailViewController: UIViewController {
             addressTextField.text = selContact.personAddress
         } else {
             addressTextField.text = ""
-            if let selContact = selectedEntry {
-                emailTextField.text = selContact.personEmail
-            }
-            
+        }
+        if let selContact = selectedEntry {
+            emailTextField.text = selContact.personEmail
+        } else {
+            emailTextField.text = ""
         }
 
         

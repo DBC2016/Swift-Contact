@@ -84,22 +84,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //Edit Table View
     
-//    tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-//    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"Delete" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-//    NSLog(@"Delete");
-//    Person *personToDelete = _personsArray[indexPath.row];
-//    [_manageObjectContext deleteObject:personToDelete];
-//    [_appDelegate saveContext];
-//    [self refreshDataAndTAble];
-//    }];
-//    return @[deleteAction];
-//    
-//    }
-//    
-    
-//    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?
-    
-    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
+            let personToDelete = self.swiftyArray[indexPath.row];
+            self.managedObjectContext.deleteObject(personToDelete)
+            self.appDelegate.saveContext()
+            self.refreshDataAndTable()
+        }
+        return [deleteAction]
+    }
     
     // REFERESHES AFTER RETURNING TO TABLE VIEW
     
