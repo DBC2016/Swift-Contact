@@ -26,13 +26,53 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var phoneTextField       :UITextField!
     @IBOutlet weak var addressTextField     :UITextField!
     @IBOutlet weak var emailTextField       :UITextField!
-    
+    @IBOutlet weak private var ratingStackView :UIStackView!
+
     
     var selectedEntry :Persons?
     
     
     
     
+    //MARK: - Stack View Methods
+    
+    
+    @IBAction func addButtonPressed(sender: UIButton) {
+        print("Add")
+        let starImageView = UIImageView(image: UIImage(named: "IconStar"))
+        starImageView.contentMode = .ScaleAspectFit
+        let starCount = ratingStackView.arrangedSubviews.count
+        ratingStackView.insertArrangedSubview(starImageView, atIndex: starCount - 1)
+            
+    
+    
+        UIView.animateWithDuration(0.25) { () -> Void in
+            self.ratingStackView.layoutIfNeeded()
+            
+            
+//            for index in 0...5 {
+        }
+        
+    }
+    
+    @IBAction func removeButtonPressed(sender: UIButton) {
+        print("Remove")
+        let starCount = ratingStackView.arrangedSubviews.count
+        if starCount  > 0 {
+            let starToRemove = ratingStackView.arrangedSubviews[starCount - 2]
+            ratingStackView.removeArrangedSubview(starToRemove)
+            starToRemove.removeFromSuperview()
+            UIView.animateWithDuration(0.25) { () -> Void in
+                self.ratingStackView.layoutIfNeeded()
+                
+            }
+        }
+    }
+    
+
+    
+    
+
     
     
     //MARK: - Interactivity Methods
@@ -47,11 +87,11 @@ class DetailViewController: UIViewController {
     
     @IBAction func saveButtonPressed(button: UIBarButtonItem) {
         print("Save Contact")
-        selectedEntry?.personFirstName = firstNameTextField.text
-        selectedEntry?.personLastName = lastNameTextField.text
-        selectedEntry?.personEmail =  emailTextField.text
-        selectedEntry?.personPhone = phoneTextField.text
-        selectedEntry?.personAddress = addressTextField.text
+        selectedEntry!.personFirstName = firstNameTextField.text
+        selectedEntry!.personLastName = lastNameTextField.text
+        selectedEntry!.personEmail =  emailTextField.text
+        selectedEntry!.personPhone = phoneTextField.text
+        selectedEntry!.personAddress = addressTextField.text
         self.saveAndPop()
         
         

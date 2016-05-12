@@ -147,6 +147,30 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOp-lE-SGL">
+                                <rect key="frame" x="320" y="344" width="55" height="30"/>
+                                <state key="normal" title="Remove"/>
+                                <connections>
+                                    <action selector="removeButtonPressed:" destination="WiE-JB-9xn" eventType="touchUpInside" id="h4p-LE-YwJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odd-08-L9D">
+                                <rect key="frame" x="240" y="344" width="30" height="30"/>
+                                <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="WiE-JB-9xn" eventType="touchUpInside" id="W60-Th-AnD"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HMg-wk-8mk">
+                                <rect key="frame" x="225" y="174" width="168" height="128"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wvc-ye-qq2">
+                                        <rect key="frame" x="0.0" y="0.0" width="168" height="128"/>
+                                        <color key="backgroundColor" red="0.96989634709999994" green="0.4863838298" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.125759964" green="1" blue="0.068294992469999996" alpha="1" colorSpace="calibratedRGB"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -170,6 +194,7 @@
                         <outlet property="firstNameTextField" destination="bG0-Dt-fSe" id="wPx-xu-3iY"/>
                         <outlet property="lastNameTextField" destination="cmP-Db-3wp" id="ggO-yu-jcE"/>
                         <outlet property="phoneTextField" destination="SgG-HP-jzu" id="h1U-Vj-J8q"/>
+                        <outlet property="ratingStackView" destination="HMg-wk-8mk" id="ow4-yd-mKr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7e-CL-eSU" userLabel="First Responder" sceneMemberID="firstResponder"/>
