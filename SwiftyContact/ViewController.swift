@@ -8,25 +8,26 @@
 
 import UIKit
 import CoreData
-import Contacts
-import ContactsUI
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate {
+
+
+
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
     
     
-    
-    
+ 
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var swiftyArray = [Persons]()
-    var contactStore = CNContactStore()
+
+   
+
+
 
     @IBOutlet weak private var contactTableView :UITableView!
-    @IBOutlet weak private var myPicker :UIPickerView!
-    
-
     
       
     
@@ -51,60 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    @IBAction private func showContactList(sender: UIBarButtonItem) {
-        print("Show Contact List")
-        let contactLIstVC = CNContactPickerViewController()
-        contactLIstVC.delegate = self
-        presentViewController(contactLIstVC, animated: true, completion: nil)
-    }
-    
-    func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
-        let fullname = CNContactFormatter.stringFromContact(contact, style: .FullName)
-        print("Name: \(contact.givenName) \(contact.familyName) OR \(fullname)")
-        
-        for email in contact.emailAddresses {
-            print("Email (" + CNLabeledValue.localizedStringForLabel(email.label) + "):" + (email.value as! String))
-            
-        }
-        
-        for phone in contact.phoneNumbers {
-            print("Phone (" + CNLabeledValue.localizedStringForLabel(phone.label) + "):" + (phone.value as! CNPhoneNumber).stringValue)
-        }
-        
-    }
-    
-    
-    private func presentContactMatchingName(name: String) {
-        let predicate = CNContact.predicateForContactsMatchingName(name)
-        let keysToFetch = [CNContactViewController.descriptorForRequiredKeys()]
-        do {
-            let contacts = try contactStore.unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-            if let firstContact = contacts.first {
-                print("Contact: " + firstContact.givenName)
-                displayContact(firstContact)
-            }
-        } catch {
-            print("Error")
-            
-        }
-        
-    }
-    
-    private func displayContact(contact: CNContact) {
-        let contactVC = CNContactViewController(forContact: contact)
-        contactVC.contactStore = contactStore
-        contactVC.delegate = self
-        navigationController!.pushViewController(contactVC, animated: true)
-        
-    }
-    
-    func contactViewController(viewController: CNContactViewController, didCompleteWithContact contact: CNContact?) {
-        print("Done With: \(contact!.familyName)")
-        
-    }
-    
-    
-
+ 
     //MARK: - Table View Methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -197,19 +145,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    //MARK: - Contact Methods
     
     
-
-    
-
+       
 
     //MARK:  - Life Cycle Methods
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tempAddRecords()
+//        tempAddRecords()
 
     }
     
