@@ -181,6 +181,9 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
             print("Phone (" + CNLabeledValue.localizedStringForLabel(phone.label) + "):" + (phone.value as! CNPhoneNumber).stringValue)
         }
         
+        // NEED TO FILL IN SELECTEDENTRY WITH the CONTACT info
+        lastNameTextField.text = contact.familyName
+        
     }
     
     
@@ -227,24 +230,24 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
 
     
 
-
-
-
+    
+    
+    
     //MARK: - Life Cycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         if selectedEntry != nil{
             self.personLoadUp()
-        
+            
         } else {
             let entityDescription = NSEntityDescription.entityForName("Persons", inManagedObjectContext: managedObjectContext)!
             selectedEntry = Persons(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
             self.personLoadUp()
         }
-           }
+    }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
@@ -252,7 +255,7 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
             managedObjectContext.rollback()
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
