@@ -8,20 +8,30 @@
 
 import UIKit
 import CoreData
+import Contacts
+import ContactsUI
 
 
 
 
-
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate  {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CNContactPickerDelegate, CNContactViewControllerDelegate  {
     
-    
+    private weak var firstNameTextField       :UITextField!
+    private weak var lastNameTextField        :UITextField!
+    private weak var phoneTextField           :UITextField!
+    private weak var addressTextField         :UITextField!
+    private weak var emailTextField           :UITextField!
+
  
     
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var swiftyArray = [Persons]()
+    var contactStore = CNContactStore()
+    var selectedEntry :Persons?
+
+
 
    
 
@@ -29,7 +39,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak private var contactTableView :UITableView!
     
-      
+    
+    
+    
+    //MARK: - Core Methods
+    
+    
+    private func filterArrayForSection(array: [String], section: Int) -> [String] {
+        let sectionHeader = swiftyArray[section]
+        return array.filter {String($0[$0.startIndex.advancedBy(0)]) == sectionHeader}
+    }
     
     
     //MARK: - Interactivity Methods
@@ -51,6 +70,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
+//    func saveAndPop() {
+//        appDelegate.saveContext()
+//        self.navigationController?.popViewControllerAnimated(true)
+//        
+//    }
+    
     
  
     //MARK: - Table View Methods
@@ -64,7 +89,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let currentEntry = swiftyArray[indexPath.row]
         cell.textLabel!.text = currentEntry.personFirstName! + " " + currentEntry.personLastName!
-        cell.detailTextLabel!.text = "\(currentEntry.personPhone!)"
+        if let phone = currentEntry.personPhone {
+             cell.detailTextLabel!.text = "\(phone)"
+            
+        }
+       
         
         return cell
         
@@ -93,10 +122,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
-    //MARK: - Core Data Methods
+    //MARK: - CORE DATA METHODS
     
     
-    //ADD TEMP RECORDS
+    //Add Temp Records
     
     func tempAddRecords() {
         
@@ -128,7 +157,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    //FETCH REQUEST
+    //Fetch Request
     
     func fetchPersons() -> [Persons]? {
         let fetchRequest = NSFetchRequest(entityName: "Persons")
@@ -146,8 +175,70 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     
+    //MARK: - Contact Methods
     
-       
+    @IBAction private func showContactList(sender: UIBarButtonItem) {
+        print("Show Contact List")
+        let contactLIstVC = CNContactPickerViewController()
+        contactLIstVC.delegate = self
+        presentViewController(contactLIstVC, animated: true, completion: nil)
+    }
+    
+    func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
+        let entityDescription = NSEntityDescription.entityForName("Persons", inManagedObjectContext: managedObjectContext)!
+        let currentContact = Persons(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
+        let fullname = CNContactFormatter.stringFromContact(contact, style: .FullName)
+        print("Name: \(contact.givenName) \(contact.familyName) OR \(fullname)")
+        
+        currentContact.personFirstName = contact.givenName
+        currentContact.personLastName = contact.familyName
+        
+        if let email = contact.emailAddresses.first?.value as? String {
+           
+          currentContact.personEmail = "\(email)"
+        }
+        
+        if let phone = contact.phoneNumbers.first?.value as? CNPhoneNumber {
+
+            currentContact.personPhone = phone.stringValue        }
+         appDelegate.saveContext()
+    }
+    
+
+
+    
+    private func presentContactMatchingName(name: String) {
+        let predicate = CNContact.predicateForContactsMatchingName(name)
+        let keysToFetch = [CNContactViewController.descriptorForRequiredKeys()]
+        do {
+            let contacts = try contactStore.unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
+            if let firstContact = contacts.first {
+                print("Contact: " + firstContact.givenName)
+                displayContact(firstContact)
+            }
+        } catch {
+            print("Error")
+            
+        }
+        
+    }
+    
+    private func displayContact(contact: CNContact) {
+        let contactVC = CNContactViewController(forContact: contact)
+        contactVC.contactStore = contactStore
+        contactVC.delegate = self
+        navigationController!.pushViewController(contactVC, animated: true)
+        
+    }
+    
+    func contactViewController(viewController: CNContactViewController, didCompleteWithContact contact: CNContact?) {
+        print("Done With: \(contact!.familyName)")
+        
+    }
+    
+
+    
+
 
     //MARK:  - Life Cycle Methods
     
@@ -155,19 +246,39 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tempAddRecords()
-
+//        if selectedEntry != nil{
+//            self.personLoadUp()
+//            
+//        } else {
+//            let entityDescription = NSEntityDescription.entityForName("Persons", inManagedObjectContext: managedObjectContext)!
+//            selectedEntry = Persons(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
+//            self.personLoadUp()
+//        }
+        
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.refreshDataAndTable()
+        
+    }
 
+
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    
+
+
+
+
+
 }
+
+
+
+    
+
 

@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		621D3F071CFF7E6400A9AD53 /* Persons+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621D3F051CFF7E6400A9AD53 /* Persons+CoreDataProperties.swift */; };
+		621D3F081CFF7E6400A9AD53 /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621D3F061CFF7E6400A9AD53 /* Persons.swift */; };
 		62EB180E1CE2611E00A1A0D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB180D1CE2611E00A1A0D6 /* AppDelegate.swift */; };
 		62EB18101CE2611E00A1A0D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB180F1CE2611E00A1A0D6 /* ViewController.swift */; };
 		62EB18131CE2611E00A1A0D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62EB18111CE2611E00A1A0D6 /* Main.storyboard */; };
 		62EB18161CE2611E00A1A0D6 /* SwiftyContact.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62EB18141CE2611E00A1A0D6 /* SwiftyContact.xcdatamodeld */; };
 		62EB18181CE2611E00A1A0D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62EB18171CE2611E00A1A0D6 /* Assets.xcassets */; };
 		62EB181B1CE2611E00A1A0D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62EB18191CE2611E00A1A0D6 /* LaunchScreen.storyboard */; };
-		62EB18241CE2659100A1A0D6 /* Persons+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB18221CE2659100A1A0D6 /* Persons+CoreDataProperties.swift */; };
-		62EB18251CE2659100A1A0D6 /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB18231CE2659100A1A0D6 /* Persons.swift */; };
 		62EB18271CE269E100A1A0D6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EB18261CE269E100A1A0D6 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		621D3F041CFF7E0A00A9AD53 /* SwiftyContact 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SwiftyContact 2.xcdatamodel"; sourceTree = "<group>"; };
+		621D3F051CFF7E6400A9AD53 /* Persons+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Persons+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		621D3F061CFF7E6400A9AD53 /* Persons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
 		62EB180A1CE2611E00A1A0D6 /* SwiftyContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62EB180D1CE2611E00A1A0D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62EB180F1CE2611E00A1A0D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,8 +30,6 @@
 		62EB18171CE2611E00A1A0D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62EB181A1CE2611E00A1A0D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		62EB181C1CE2611E00A1A0D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		62EB18221CE2659100A1A0D6 /* Persons+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Persons+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		62EB18231CE2659100A1A0D6 /* Persons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
 		62EB18261CE269E100A1A0D6 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,16 +63,16 @@
 		62EB180C1CE2611E00A1A0D6 /* SwiftyContact */ = {
 			isa = PBXGroup;
 			children = (
+				621D3F061CFF7E6400A9AD53 /* Persons.swift */,
 				62EB180D1CE2611E00A1A0D6 /* AppDelegate.swift */,
 				62EB180F1CE2611E00A1A0D6 /* ViewController.swift */,
 				62EB18261CE269E100A1A0D6 /* DetailViewController.swift */,
 				62EB18111CE2611E00A1A0D6 /* Main.storyboard */,
 				62EB18171CE2611E00A1A0D6 /* Assets.xcassets */,
+				621D3F051CFF7E6400A9AD53 /* Persons+CoreDataProperties.swift */,
 				62EB18191CE2611E00A1A0D6 /* LaunchScreen.storyboard */,
 				62EB181C1CE2611E00A1A0D6 /* Info.plist */,
 				62EB18141CE2611E00A1A0D6 /* SwiftyContact.xcdatamodeld */,
-				62EB18221CE2659100A1A0D6 /* Persons+CoreDataProperties.swift */,
-				62EB18231CE2659100A1A0D6 /* Persons.swift */,
 			);
 			path = SwiftyContact;
 			sourceTree = "<group>";
@@ -148,12 +149,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62EB18241CE2659100A1A0D6 /* Persons+CoreDataProperties.swift in Sources */,
+				621D3F081CFF7E6400A9AD53 /* Persons.swift in Sources */,
 				62EB18101CE2611E00A1A0D6 /* ViewController.swift in Sources */,
 				62EB180E1CE2611E00A1A0D6 /* AppDelegate.swift in Sources */,
 				62EB18271CE269E100A1A0D6 /* DetailViewController.swift in Sources */,
-				62EB18251CE2659100A1A0D6 /* Persons.swift in Sources */,
 				62EB18161CE2611E00A1A0D6 /* SwiftyContact.xcdatamodeld in Sources */,
+				621D3F071CFF7E6400A9AD53 /* Persons+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +306,7 @@
 				62EB18211CE2611E00A1A0D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
@@ -312,9 +314,10 @@
 		62EB18141CE2611E00A1A0D6 /* SwiftyContact.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				621D3F041CFF7E0A00A9AD53 /* SwiftyContact 2.xcdatamodel */,
 				62EB18151CE2611E00A1A0D6 /* SwiftyContact.xcdatamodel */,
 			);
-			currentVersion = 62EB18151CE2611E00A1A0D6 /* SwiftyContact.xcdatamodel */;
+			currentVersion = 621D3F041CFF7E0A00A9AD53 /* SwiftyContact 2.xcdatamodel */;
 			path = SwiftyContact.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

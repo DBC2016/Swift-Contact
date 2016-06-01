@@ -16,7 +16,10 @@ import ContactsUI
 
 
 
+
 class DetailViewController: UIViewController, CNContactPickerDelegate, CNContactViewControllerDelegate {
+    
+//    CNContactPickerDelegate, CNContactViewControllerDelegate
     
     
     
@@ -24,17 +27,17 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     
-    @IBOutlet weak var firstNameTextField   :UITextField!
-    @IBOutlet weak var lastNameTextField    :UITextField!
-    @IBOutlet weak var phoneTextField       :UITextField!
-    @IBOutlet weak var addressTextField     :UITextField!
-    @IBOutlet weak var emailTextField       :UITextField!
-    @IBOutlet weak private var ratingStackView :UIStackView!
+    @IBOutlet weak var firstNameTextField       :UITextField!
+    @IBOutlet weak var lastNameTextField        :UITextField!
+    @IBOutlet weak var phoneTextField           :UITextField!
+    @IBOutlet weak var addressTextField         :UITextField!
+    @IBOutlet weak var emailTextField           :UITextField!
+    @IBOutlet weak private var ratingStackView  :UIStackView!
 
 
     
     var selectedEntry :Persons?
-    var contactStore = CNContactStore()
+//    var contactStore = CNContactStore()
 
 
     
@@ -107,6 +110,7 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
         selectedEntry!.personEmail =  emailTextField.text
         selectedEntry!.personPhone = phoneTextField.text
         selectedEntry!.personAddress = addressTextField.text
+        selectedEntry!.personRating = ratingStackView.arrangedSubviews.count - 1
         self.saveAndPop()
         
         
@@ -124,6 +128,7 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
         
     }
     
+ 
     
         
     func personLoadUp() {
@@ -153,91 +158,27 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
         } else {
             emailTextField.text = ""
         }
-
         
-    }
     
-    
-    
-    //MARK: - Contact Methods
-    
-    @IBAction private func showContactList(sender: UIBarButtonItem) {
-        print("Show Contact List")
-        let contactLIstVC = CNContactPickerViewController()
-        contactLIstVC.delegate = self
-        presentViewController(contactLIstVC, animated: true, completion: nil)
-    }
-    
-    func contactPicker(picker: CNContactPickerViewController, didSelectContact contact: CNContact) {
-        let fullname = CNContactFormatter.stringFromContact(contact, style: .FullName)
-        print("Name: \(contact.givenName) \(contact.familyName) OR \(fullname)")
+//        if let selContact = selectedEntry {
         
-        for email in contact.emailAddresses {
-            print("Email (" + CNLabeledValue.localizedStringForLabel(email.label) + "):" + (email.value as! String))
-            
-        }
-        
-        for phone in contact.phoneNumbers {
-            print("Phone (" + CNLabeledValue.localizedStringForLabel(phone.label) + "):" + (phone.value as! CNPhoneNumber).stringValue)
-        }
-        
-        // NEED TO FILL IN SELECTEDENTRY WITH the CONTACT info
-        lastNameTextField.text = contact.familyName
-        
-    }
-    
-    
-    @IBAction private func showContactEditor(sender: UIBarButtonItem) {
-        print("Show Editor")
-        if let lastname = lastNameTextField.text {
-            presentContactMatchingName(lastname)
-            
-            
-        }
-    }
-    
-    
-    private func presentContactMatchingName(name: String) {
-        let predicate = CNContact.predicateForContactsMatchingName(name)
-        let keysToFetch = [CNContactViewController.descriptorForRequiredKeys()]
-        do {
-            let contacts = try contactStore.unifiedContactsMatchingPredicate(predicate, keysToFetch: keysToFetch)
-            if let firstContact = contacts.first {
-                print("Contact: " + firstContact.givenName)
-                displayContact(firstContact)
-            }
-        } catch {
-            print("Error")
-            
-        }
-        
-    }
-    
-    private func displayContact(contact: CNContact) {
-        let contactVC = CNContactViewController(forContact: contact)
-        contactVC.contactStore = contactStore
-        contactVC.delegate = self
-        navigationController!.pushViewController(contactVC, animated: true)
-        
-    }
-    
-    func contactViewController(viewController: CNContactViewController, didCompleteWithContact contact: CNContact?) {
-        print("Done With: \(contact!.familyName)")
-        
-    }
-    
+//            ratingStackView.arrangedSubviews =
+//            for _ in 0..< rating {
+//                self.addStar()
+//            
     
 
+//        }
+//    }
     
+        
 
-    
-    
+    }
     
     //MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if selectedEntry != nil{
             self.personLoadUp()
@@ -249,11 +190,21 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
         }
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+//                self.refreshDataAndTable()
+        
+    }
+    
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         if managedObjectContext.hasChanges {
             managedObjectContext.rollback()
+            
         }
+        
+
     }
     
     override func didReceiveMemoryWarning() {
