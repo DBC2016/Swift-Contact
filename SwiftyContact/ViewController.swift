@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var swiftyArray = [Persons]()
+    var indexArray = [String]()
     var contactStore = CNContactStore()
     var selectedEntry :Persons?
 
@@ -44,11 +45,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK: - Core Methods
     
+
     
-    private func filterArrayForSection(array: [String], section: Int) -> [String] {
-        let sectionHeader = swiftyArray[section]
-        return array.filter {String($0[$0.startIndex.advancedBy(0)]) == sectionHeader}
+    private func createdIndexFromArray(array: [Persons]) -> [String] {
+        let letterArray = array.map {String($0.personLastName![$0.personLastName!.startIndex.advancedBy(0)])}
+        var uniqueArray = Array(Set(letterArray))
+        uniqueArray.sortInPlace()
+        return uniqueArray
+        
     }
+    
+    
+    private func filterArrayForSection(array: [Persons], section: Int) -> [Persons] {
+        let sectionHeader = indexArray[section]
+        return array.filter {String($0.personLastName![$0.personLastName!.startIndex.advancedBy(0)]) == sectionHeader}
+    }
+    
+
     
     
     //MARK: - Interactivity Methods
@@ -80,17 +93,38 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
     //MARK: - Table View Methods
     
+
+
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return indexArray.count
+    }
+    
+
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return swiftyArray.count
+        return filterArrayForSection(swiftyArray, section: section).count
     }
 
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        let currentEntry = swiftyArray[indexPath.row]
+        let currentEntry = filterArrayForSection(swiftyArray, section: indexPath.section)[indexPath.row]
         cell.textLabel!.text = currentEntry.personFirstName! + " " + currentEntry.personLastName!
         if let phone = currentEntry.personPhone {
              cell.detailTextLabel!.text = "\(phone)"
+            
+        }
+        
+        func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+            return 75
+            
+        }
+        
+
+        
+        func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+            return indexArray
             
         }
        
@@ -116,10 +150,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func refreshDataAndTable() {
         swiftyArray = self.fetchPersons()!
+        indexArray = self.createdIndexFromArray(swiftyArray)
         contactTableView.reloadData()
         
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return indexArray[section]
+    }
+    
+    func  tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Count: \(filterArrayForSection(swiftyArray, section: section).count)"
+    }
     
     
     //MARK: - CORE DATA METHODS
@@ -246,14 +288,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tempAddRecords()
-//        if selectedEntry != nil{
-//            self.personLoadUp()
-//            
-//        } else {
-//            let entityDescription = NSEntityDescription.entityForName("Persons", inManagedObjectContext: managedObjectContext)!
-//            selectedEntry = Persons(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext)
-//            self.personLoadUp()
-//        }
+//        uniqueArray.sortInPlace()
+//        indexArray = createdIndexFromArray(uniqueArray)
+
         
     }
     

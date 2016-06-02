@@ -74,6 +74,7 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
             self.ratingStackView.layoutIfNeeded()
             
             
+            
         }
         
     }
@@ -158,22 +159,22 @@ class DetailViewController: UIViewController, CNContactPickerDelegate, CNContact
         } else {
             emailTextField.text = ""
         }
-        
-    
 //        if let selContact = selectedEntry {
-        
-//            ratingStackView.arrangedSubviews =
-//            for _ in 0..< rating {
+//            ratingStackView.arrangedSubviews.count = selContact.personRating
+//        } else {
+//            ratingStackView.arrangedSubviews.count
+//                for _ in 0..< rating
 //                self.addStar()
-//            
+        
+            
+        
     
-
-//        }
-//    }
+            
+        }
     
         
 
-    }
+
     
     //MARK: - Life Cycle Methods
     
